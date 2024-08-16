@@ -8,7 +8,6 @@ import {
   FormItem,
   FormLabel,
   FormControl,
-  FormDescription,
   FormMessage,
   FormField,
 } from "@/components/ui/form";
@@ -41,7 +40,6 @@ export default function RegisterForm() {
   } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    // Show loading toast
     const toastId = toast.loading("Registering...");
     
     const response = await fetch(`/api/auth/register`, {
@@ -58,30 +56,32 @@ export default function RegisterForm() {
   };
 
   return (
-    <Card className="w-full border-orange-600 md:w-6/12 lg:w-5/12 xl:w-3/12">
-      <CardHeader><CardTitle className="text-center text-orange-600">Register</CardTitle></CardHeader>
+    <Card className="w-full border-[#535cf9] bg-white md:w-6/12 lg:w-5/12 xl:w-3/12">
+      <CardHeader>
+        <CardTitle className="text-center text-[#535cf9]">Register</CardTitle>
+      </CardHeader>
       <CardContent>
         <Form {...methods}>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-2 mx-auto max-w-md"
+            className="flex flex-col gap-4 mx-auto max-w-md"
           >
             <FormField
               name="name"
               control={methods.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel className="text-[#535cf9]">Name</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      className="border border-black text-black"
+                      className="border-[#535cf9] text-black placeholder:text-gray-500"
                       type="text"
                       placeholder="Name"
                     />
                   </FormControl>
                   {errors.name && (
-                    <FormMessage>{errors.name.message}</FormMessage>
+                    <FormMessage className="text-red-600">{errors.name.message}</FormMessage>
                   )}
                 </FormItem>
               )}
@@ -91,17 +91,17 @@ export default function RegisterForm() {
               control={methods.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel className="text-[#535cf9]">Email</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      className="border border-black text-black"
+                      className="border-[#535cf9] text-black placeholder:text-gray-500"
                       type="email"
                       placeholder="Email"
                     />
                   </FormControl>
                   {errors.email && (
-                    <FormMessage>{errors.email.message}</FormMessage>
+                    <FormMessage className="text-red-600">{errors.email.message}</FormMessage>
                   )}
                 </FormItem>
               )}
@@ -111,26 +111,26 @@ export default function RegisterForm() {
               control={methods.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel className="text-[#535cf9]">Password</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      className="border border-black text-black"
+                      className="border-[#535cf9] text-black placeholder:text-gray-500"
                       type="password"
                       placeholder="Password"
                     />
                   </FormControl>
                   {errors.password && (
-                    <FormMessage>{errors.password.message}</FormMessage>
+                    <FormMessage className="text-red-600">{errors.password.message}</FormMessage>
                   )}
                 </FormItem>
               )}
             />
-            <Button type="submit">Register</Button>
+            <Button type="submit" className="bg-[#535cf9] text-white hover:bg-[#4348e1]">Register</Button>
           </form>
         </Form>
         <p className="text-center mt-4">
-          Have an account? <Link href="/login" className="text-orange-600">Login</Link>
+          Have an account? <Link href="/login" className="text-[#535cf9]">Login</Link>
         </p>
       </CardContent>
     </Card>
