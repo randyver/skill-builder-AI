@@ -1,5 +1,14 @@
 import LoginForm from "./login-form";
 import Image from "next/image";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Login",
+  description: "Lo",
+  icons: {
+    icon: "/logo.svg",
+  }
+};
 
 export default async function LoginPage() {
   return (

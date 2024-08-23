@@ -1,5 +1,14 @@
 import Image from "next/image";
+import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
+
+export const metadata: Metadata = {
+  title: "Skill Builder AI",
+  description: "Master Your Path to IT Excellence",
+  icons: {
+    icon: "/logo.svg",
+  }
+};
 
 export default function Home() {
   return (
@@ -23,7 +32,7 @@ export default function Home() {
 
           <div className="flex flex-col justify-center items-center lg:items-start">
             <Button className="w-3/5 md:w-2/5 xl:w-1/5 xl:text-2xl lg:text-xl text-lg mt-8 p-6">
-              Get Started
+              <a href="/predict"> Get Started</a>
             </Button>
           </div>
         </div>
