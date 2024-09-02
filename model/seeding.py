@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 # Tentukan jumlah sampel yang akan di-generate
-num_samples = 1000
+num_samples = 10000
 
 # Seed random number generator for reproducibility
 np.random.seed(42)
@@ -54,21 +54,28 @@ interest_columns = [
 def skill_to_improve(row):
     min_skill_level = float('inf')
     skill_to_improve = None
+    max_interest = -1
 
     if row['Confidence_Level'] < 5:
         return 'CodingSkill'
 
-    else:
-        for skill, interest in zip(skill_columns, interest_columns):
-            
-            if row[skill] < min_skill_level and row[interest] > 5:
+    for skill, interest in zip(skill_columns, interest_columns):
+        if row[skill] > 5:
+             if row[skill] < min_skill_level or (row[skill] == min_skill_level and row[interest] > max_interest):
                 min_skill_level = row[skill]
-                skill_to_improve = skill.split('_')[-1]  # Take the skill name
-        
-        return skill_to_improve
+                max_interest = row[interest]
+                skill_to_improve = skill.split('_')[-1]
+
+        if skill_to_improve is None:
+            for skill in skill_columns:
+                if row[skill] < min_skill_level:
+                    min_skill_level = row[skill]
+                    skill_to_improve = skill.split('_')[-1]
+
+    return skill_to_improve
 
 df = pd.DataFrame(data)
 df['Skill_to_Improve_First'] = df.apply(skill_to_improve, axis=1)
 
 # Write to CSV
-df.to_csv('seeded_data.csv', index=False)
+df.to_csv('./model/data.csv', index=False)
