@@ -60,15 +60,17 @@ def skill_to_improve(row):
         return 'CodingSkill'
 
     for skill, interest in zip(skill_columns, interest_columns):
-        if row[skill] > 5:
+        if row[interest] > 5:
              if row[skill] < min_skill_level or (row[skill] == min_skill_level and row[interest] > max_interest):
                 min_skill_level = row[skill]
                 max_interest = row[interest]
                 skill_to_improve = skill.split('_')[-1]
 
         if skill_to_improve is None:
+            max_interest = -1
             for skill in skill_columns:
-                if row[skill] < min_skill_level:
+                if row[skill] < min_skill_level and row[interest] > max_interest:
+                    max_interest = row[interest]
                     min_skill_level = row[skill]
                     skill_to_improve = skill.split('_')[-1]
 
