@@ -36,41 +36,168 @@ const FormSchema = z.object({
   Interest_Level_in_SoftEng: z.number().int().min(1).max(10),
 });
 
-const descriptions: { [key: string]: { description: string, image: string } } = {
+const descriptions: { [key: string]: { description: string; image: string } } =
+  {
+    "Coding Skill": {
+      description:
+        "Refers to the ability to write code and solve problems using programming languages. Strong coding skills are essential for software development and other technical roles.",
+      image: "/skills/coding-skill.png",
+    },
+    "Web Development": {
+      description:
+        "Focuses on building and maintaining websites and web applications. Involves front-end and back-end development, as well as knowledge of various programming languages and frameworks.",
+      image: "/skills/web-dev.png",
+    },
+    "Game Development": {
+      description:
+        "Involves creating and designing interactive video games. This field covers aspects like game mechanics, graphics, programming, and storytelling to create engaging experiences.",
+      image: "/skills/game-dev.png",
+    },
+    "Cyber Security": {
+      description:
+        "Specializes in protecting systems, networks, and data from cyber threats. This includes identifying vulnerabilities, implementing security measures, and responding to security incidents.",
+      image: "/skills/cyber-security.png",
+    },
+    "Data Science": {
+      description:
+        "Uses statistical analysis, machine learning, and data visualization to extract insights from data. Data scientists analyze and interpret complex data to help businesses make informed decisions.",
+      image: "/skills/data-science.png",
+    },
+    "Mobile Development": {
+      description:
+        "Focuses on creating applications for mobile devices like smartphones and tablets. This includes designing, coding, and testing apps for platforms such as iOS and Android.",
+      image: "/skills/mobile-dev.png",
+    },
+    "Product Manager": {
+      description:
+        "Involves overseeing the development and delivery of products. Product managers work on defining product vision, gathering requirements, and coordinating with teams to bring a product to market.",
+      image: "/skills/product-management.png",
+    },
+    "UI/UX": {
+      description:
+        "Concentrates on designing user interfaces and improving user experiences. This includes creating intuitive designs, conducting user research, and ensuring a seamless interaction between users and products.",
+      image: "/skills/ui-ux.png",
+    },
+    "Software Engineering": {
+      description:
+        "Involves designing, developing, and maintaining software systems. Software engineers apply engineering principles to create scalable, reliable, and efficient software solutions.",
+      image: "/skills/software-engineering.png",
+    },
+  };
+
+const videoRecommendations: {
+  [key: string]: { beginner: string[]; advanced: string[] };
+} = {
+  "Coding Skill": {
+    beginner: [
+      "https://www.youtube.com/embed/zOjov-2OZ0E?si=VQUuhoW331wAefoM",
+      "https://www.youtube.com/embed/rfscVS0vtbw?si=7FsRQEm3EP6kLmgt",
+      "https://www.youtube.com/embed/ZzaPdXTrSb8?si=D1zdedFH9NxSVmFS",
+    ],
+    advanced: [
+      "https://www.youtube.com/embed/jQqQpPMYPXs?si=XLwIbcd9_cNbt7sl",
+      "https://www.youtube.com/embed/YT8s-90oDC0?si=H8LLl8CWgP1OoVRI",
+      "https://www.youtube.com/embed/NpmFbWO6HPU?si=NUIdX15Y8ocdqO-n",
+    ],
+  },
   "Web Development": {
-    description: "Focuses on building and maintaining websites and web applications. Involves front-end and back-end development, as well as knowledge of various programming languages and frameworks.",
-    image: "/skills/web-dev.png"
+    beginner: [
+      "https://www.youtube.com/embed/GxmfcnU3feo?si=ZUKqgWuEuSuY5NI7",
+      "https://www.youtube.com/embed/qz0aGYrrlhU?si=1UdMhCOn46zywzB3",
+      "https://www.youtube.com/embed/FazgJVnrVuI?si=1KdzO9PT6ecs81AF",
+    ],
+    advanced: [
+      "https://www.youtube.com/embed/HVjjoMvutj4?si=3roeSbbKPfqL5Ys_",
+      "https://www.youtube.com/embed/wm5gMKuwSYk?si=WtB0yiq7Zv08b32b",
+      "https://www.youtube.com/embed/HwCqsOis894?si=bukgLjks1hQyX5e-",
+    ],
   },
   "Game Development": {
-    description: "Involves creating and designing interactive video games. This field covers aspects like game mechanics, graphics, programming, and storytelling to create engaging experiences.",
-    image: "/skills/game-dev.png"
+    beginner: [
+      "https://www.youtube.com/embed/WqQsuIW2CFE?si=CBovb8FWZnQ1uWXX",
+      "https://www.youtube.com/embed/7C92ZCnlmQo?si=1ctkZ3G3AmyWG_it",
+      "https://www.youtube.com/embed/AmGSEH7QcDg?si=rf4dCHcBdhfy8c0j",
+    ],
+    advanced: [
+      "https://www.youtube.com/embed/VEnZzwW_OJM?si=k4h2C8G4AoCHVkKM",
+      "https://www.youtube.com/embed/gB1F9G0JXOo?si=sjqoqLvMzblwenv6",
+      "https://www.youtube.com/embed/XtQMytORBmM?si=U2cxSjtOKrTjeey0",
+    ],
   },
+
   "Cyber Security": {
-    description: "Specializes in protecting systems, networks, and data from cyber threats. This includes identifying vulnerabilities, implementing security measures, and responding to security incidents.",
-    image: "/skills/cyber-security.png"
+    beginner: [
+      "https://www.youtube.com/embed/j_8PLI_wCVU?si=_9ppvYT88NYsdJ2p",
+      "https://www.youtube.com/embed/dz7Ntp7KQGA?si=jgIbgtPwfGzlrVgE",
+      "https://www.youtube.com/embed/hXSFdwIOfnE?si=lOhy4cB3_riYBOVN",
+    ],
+    advanced: [
+      "https://www.youtube.com/embed/qiQR5rTSshw?si=tV3bs-te3AseQFG_",
+      "https://www.youtube.com/embed/teV8m6IqCvE?si=i3QnqXSYZ2jiqFQ2",
+      "https://www.youtube.com/embed/wNA4CLG-OSM?si=RlO-gbzE499NqHF6",
+    ],
   },
   "Data Science": {
-    description: "Uses statistical analysis, machine learning, and data visualization to extract insights from data. Data scientists analyze and interpret complex data to help businesses make informed decisions.",
-    image: "/skills/data-science.png"
+    beginner: [
+      "https://www.youtube.com/embed/DkjCaAMBGWM?si=lDldoWXIcYJn4F3j",
+      "https://www.youtube.com/embed/Liv6eeb1VfE?si=d-m4eAuPzaEFsRbd",
+      "https://www.youtube.com/embed/hDKCxebp88A?si=f3y2khaQ3ZDOE74P",
+    ],
+    advanced: [
+      "https://www.youtube.com/embed/29ZQ3TDGgRQ?si=z0aiVR5zRAKUxwt6",
+      "https://www.youtube.com/embed/XmSlFPDjKdc?si=b9xhKpavvILaW4qY",
+      "https://www.youtube.com/embed/L8ypSXwyBds?si=OQREtQJOmPykc_QE",
+    ],
   },
   "Mobile Development": {
-    description: "Focuses on creating applications for mobile devices like smartphones and tablets. This includes designing, coding, and testing apps for platforms such as iOS and Android.",
-    image: "/skills/mobile-dev.png"
+    beginner: [
+      "https://www.youtube.com/embed/MQ1_wPyVLVc?si=sizsTkDBdwQKDYQA",
+      "https://www.youtube.com/embed/F9UC9DY-vIU?si=06AvWIfcbs2-m47o",
+      "https://www.youtube.com/embed/0-S5a0eXPoc?si=G1LCACjg9FZcpQlp",
+    ],
+    advanced: [
+      "https://www.youtube.com/embed/kNghEbknLs8?si=T_XDS9DQv9kJTTbv",
+      "https://www.youtube.com/embed/gVcGCPspHtQ?si=V0lbMuyL_QFdprV7",
+      "https://www.youtube.com/embed/4TFbXepOjLI?si=ygjhpum2PueL9weu",
+    ],
   },
   "Product Manager": {
-    description: "Involves overseeing the development and delivery of products. Product managers work on defining product vision, gathering requirements, and coordinating with teams to bring a product to market.",
-    image: "/skills/product-management.png"
+    beginner: [
+      "https://www.youtube.com/embed/NsqyFcycBTw?si=j2ykIJOjGo4wHSJi",
+      "https://www.youtube.com/embed/ravLfnYuqmA?si=x-hWe0qYksa3_rPi",
+      "https://www.youtube.com/embed/R7my00sb1ms?si=3jlbFwyWFD1mItve",
+    ],
+    advanced: [
+      "https://www.youtube.com/embed/tuOWx0bPBNI?si=AfsAf3Y1qoa2Fahy",
+      "https://www.youtube.com/embed/iN_jeOAzoso?si=3i7EMjMXhsQEjtbc",
+      "https://www.youtube.com/embed/Uu4UwNcnL5s?si=nPMpkvgvti155i3Y",
+    ],
   },
   "UI/UX": {
-    description: "Concentrates on designing user interfaces and improving user experiences. This includes creating intuitive designs, conducting user research, and ensuring a seamless interaction between users and products.",
-    image: "/skills/ui-ux.png"
+    beginner: [
+      "https://www.youtube.com/embed/55NvZjUZIO8?si=4MQNT5_MwJEJyvg_",
+      "https://www.youtube.com/embed/c9Wg6Cb_YlU?si=HMrTnaiDP0brIT1o",
+      "https://www.youtube.com/embed/JGLfyTDgfDc?si=DXwDSTd8yZP4EtY_",
+    ],
+    advanced: [
+      "https://www.youtube.com/embed/Jo9yksmQRrk?si=fQmckasvs8TKlG9i",
+      "https://www.youtube.com/embed/K0f2Lb5yGsk?si=dkfWUIAWRsi9DiHV",
+      "https://www.youtube.com/embed/3zNXlFWwYIw?si=Vwr-Gb1aYEiWeaDM",
+    ],
   },
-  "Software Engineering": {
-    description: "Involves designing, developing, and maintaining software systems. Software engineers apply engineering principles to create scalable, reliable, and efficient software solutions.",
-    image: "/skills/software-engineering.png"
+  "Software Engineer": {
+    beginner: [
+      "https://www.youtube.com/embed/O753uuutqH8?si=9s9x80ED49DPJF1t",
+      "https://www.youtube.com/embed/ITlyBV4ttts?si=n0PeykWSYeXVDJJS",
+      "https://www.youtube.com/embed/IHx9ImEMuzQ?si=s2oP8TJNtVsPOgdI",
+    ],
+    advanced: [
+      "https://www.youtube.com/embed/Vg7Hbv_Yzxs?si=PbChKB4cr4h6iR5R",
+      "https://www.youtube.com/embed/LoYbN6qoQHA?si=d188VwJfEPYi6uXI",
+      "https://www.youtube.com/embed/QbEDrLzww5o?si=0ccQ2NM3vi603v67",
+    ],
   },
 };
-
 
 export default function PredictForm() {
   const [result, setResult] = useState<{
@@ -82,23 +209,23 @@ export default function PredictForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      Confidence_Level: 5,
-      Self_Assessed_Skill_Level_in_WebDev: 5,
-      Interest_Level_in_WebDev: 5,
-      Self_Assessed_Skill_Level_in_GameDev: 5,
-      Interest_Level_in_GameDev: 5,
-      Self_Assessed_Skill_Level_in_CyberSecurity: 5,
-      Interest_Level_in_CyberSecuirty: 5,
-      Self_Assessed_Skill_Level_in_DataScience: 5,
-      Interest_Level_in_DataScience: 5,
-      Self_Assessed_Skill_Level_in_MobileDev: 5,
-      Interest_Level_in_MobileDev: 5,
-      Self_Assessed_Skill_Level_in_ProductManager: 5,
-      Interest_Level_in_ProductManager: 5,
-      Self_Assessed_Skill_Level_in_UIUX: 5,
-      Interest_Level_in_UIUX: 5,
-      Self_Assessed_Skill_Level_in_SoftEng: 5,
-      Interest_Level_in_SoftEng: 5,
+      Confidence_Level: 1,
+      Self_Assessed_Skill_Level_in_WebDev: 1,
+      Interest_Level_in_WebDev: 1,
+      Self_Assessed_Skill_Level_in_GameDev: 1,
+      Interest_Level_in_GameDev: 1,
+      Self_Assessed_Skill_Level_in_CyberSecurity: 1,
+      Interest_Level_in_CyberSecuirty: 1,
+      Self_Assessed_Skill_Level_in_DataScience: 1,
+      Interest_Level_in_DataScience: 1,
+      Self_Assessed_Skill_Level_in_MobileDev: 1,
+      Interest_Level_in_MobileDev: 1,
+      Self_Assessed_Skill_Level_in_ProductManager: 1,
+      Interest_Level_in_ProductManager: 1,
+      Self_Assessed_Skill_Level_in_UIUX: 1,
+      Interest_Level_in_UIUX: 1,
+      Self_Assessed_Skill_Level_in_SoftEng: 1,
+      Interest_Level_in_SoftEng: 1,
     },
   });
 
@@ -112,17 +239,20 @@ export default function PredictForm() {
         },
         body: JSON.stringify(data),
       });
-  
+
       if (!response.ok) {
         throw new Error("Failed to submit data");
       }
-  
+
       const resultData = await response.json();
       console.log(resultData);
       const { Prediction } = resultData;
-  
-      const resultDetails = descriptions[Prediction] || { description: "", image: "" };
-  
+
+      const resultDetails = descriptions[Prediction] || {
+        description: "",
+        image: "",
+      };
+
       setResult({
         image: resultDetails.image,
         title: Prediction,
@@ -133,7 +263,7 @@ export default function PredictForm() {
       alert("An error occurred. Please try again.");
     }
   }
-  
+
   return (
     <main className="relative min-h-screen overflow-hidden pb-20">
       {/* Ellipses background */}
@@ -145,12 +275,12 @@ export default function PredictForm() {
         {result ? (
           <div className="flex flex-col my-8 items-center justify-center gap-y-12 text-center">
             <Image
-                src={result.image}
-                alt={result.title}
-                width={150}
-                height={150}
-                className="w-8/12 md:w-6/12 lg:w-4/12 xl:w-2/12"
-              />
+              src={result.image}
+              alt={result.title}
+              width={150}
+              height={150}
+              className="w-8/12 md:w-6/12 lg:w-4/12 xl:w-2/12"
+            />
             <div className="flex flex-col gap-y-6 text-lg lg:text-xl">
               <p className="text-2xl lg:text-3xl font-semibold">
                 Your result is{" "}
@@ -159,6 +289,50 @@ export default function PredictForm() {
                 </span>
               </p>
               <p>{result.description}</p>
+            </div>
+
+            <div className="flex flex-col gap-y-6 text-lg lg:text-xl">
+              <h2 className="text-xl lg:text-2xl font-bold">
+                Beginner Tutorials:
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {videoRecommendations[result.title]?.beginner.map(
+                  (video, index) => (
+                    <iframe
+                      key={index}
+                      width="100%"
+                      height="200"
+                      src={video}
+                      title={`Beginner Video ${index + 1}`}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  )
+                )}
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-y-6 text-lg lg:text-xl">
+              <h2 className="text-xl lg:text-2xl font-bold">
+                Advanced Tutorials:
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {videoRecommendations[result.title]?.advanced.map(
+                  (video, index) => (
+                    <iframe
+                      key={index}
+                      width="100%"
+                      height="200"
+                      src={video}
+                      title={`Advanced Video ${index + 1}`}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  )
+                )}
+              </div>
             </div>
           </div>
         ) : (
