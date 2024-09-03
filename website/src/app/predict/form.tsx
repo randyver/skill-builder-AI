@@ -15,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useState } from "react";
 import Image from "next/image";
+import { v4 as uuidv4 } from 'uuid';
 
 const FormSchema = z.object({
   Confidence_Level: z.number().int().min(1).max(10),
@@ -199,7 +200,11 @@ const videoRecommendations: {
   },
 };
 
-export default function PredictForm() {
+interface PredictFormProps {
+  user_id: number;
+}
+
+export default function PredictForm({ user_id }: PredictFormProps) {
   const [result, setResult] = useState<{
     image: string;
     title: string;
@@ -232,6 +237,11 @@ export default function PredictForm() {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
       console.log(data);
+
+  
+      // Generate a unique result_id
+      const result_id = uuidv4();
+  
       const response = await fetch("http://127.0.0.1:5000/predict", {
         method: "POST",
         headers: {
@@ -258,11 +268,29 @@ export default function PredictForm() {
         title: Prediction,
         description: resultDetails.description,
       });
+  
+      // Save the result to the database, including user_id and result_id
+      const saveResponse = await fetch(`/api/result/${user_id}/${result_id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          field: Prediction,
+        }),
+      });
+  
+      if (!saveResponse.ok) {
+        throw new Error("Failed to save result to database");
+      }
+  
+      console.log("Result saved successfully");
     } catch (error) {
       console.error("An error occurred:", error);
       alert("An error occurred. Please try again.");
     }
   }
+  
 
   return (
     <main className="relative min-h-screen overflow-hidden pb-20">

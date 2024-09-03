@@ -30,7 +30,7 @@ const handler = NextAuth({
             where: eq(users.email, credentials.email),
           });
 
-          if(!user || !user.password) {
+          if (!user || !user.password) {
             throw new Error('Invalid email or password');
           }
 
@@ -40,10 +40,9 @@ const handler = NextAuth({
           if (!isValid) {
             throw new Error('Invalid email or password');
           }
-          
-          return { id: user.id.toString(), email: user.email };
-          
 
+          // Return the user object including the user ID
+          return { id: user.id.toString(), email: user.email };
         } catch (error) {
           console.error('Authorization error:', error);
           return null;
@@ -51,6 +50,20 @@ const handler = NextAuth({
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token?.id) {
+        session.user.id = token.id;
+      }
+      return session;
+    },
+  },
 });
 
 export { handler as GET, handler as POST };

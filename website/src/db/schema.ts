@@ -1,8 +1,22 @@
-import { pgTable, serial, text, varchar } from "drizzle-orm/pg-core";
+import { integer, pgTable, serial, text, uuid, varchar } from "drizzle-orm/pg-core";
 
 export const users = pgTable('users', {
   id: serial('id').primaryKey(),
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
   password: text("password").notNull(),
+});
+
+export const videos = pgTable('videos', {
+  id: serial('id').primaryKey(),
+  title: varchar("title").notNull(),
+  url: text("url").notNull(),
+  level: text("level").notNull(),
+  field: text("field").notNull(),
+});
+
+export const result = pgTable('result', {
+  result_id: uuid("result_id").primaryKey(),
+  user_id: integer("user_id").notNull().references(() => users.id),
+  field: text("field").notNull(),
 });
