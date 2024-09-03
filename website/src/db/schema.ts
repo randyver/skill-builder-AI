@@ -20,3 +20,9 @@ export const result = pgTable('result', {
   user_id: integer("user_id").notNull().references(() => users.id),
   field: text("field").notNull(),
 });
+
+export const fields = pgTable('fields', {
+  field: text("field").primaryKey(),
+  description: text("description").notNull(),
+  url_image: text("url_image").notNull(),
+});

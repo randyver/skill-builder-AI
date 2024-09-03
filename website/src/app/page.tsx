@@ -32,9 +32,9 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col justify-center items-center lg:items-start">
-            <Button className="w-3/5 md:w-2/5 xl:w-1/5 xl:text-2xl lg:text-xl text-lg mt-8 p-6">
-              <Link href="/predict"> Get Started</Link>
-            </Button>
+
+              <Link href="/predict" className="text-center bg-[#535cf9] w-3/5 md:w-2/5 xl:w-1/5 xl:text-2xl lg:text-xl text-lg mt-8 p-4 rounded-xl hover:bg-[#535cf9]/90 text-white"> Get Started</Link>
+           
           </div>
         </div>
         {/* Logo section */}
