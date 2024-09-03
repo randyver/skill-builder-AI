@@ -3,14 +3,20 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { toast } from "sonner";
 import Image from "next/image";
+import Link from "next/link";
+
+interface Video {
+  id: string;
+  url: string;
+}
 
 export default function ResultBox() {
   const { userID, resultID } = useParams();
   const [image, setImage] = useState("");
   const [field, setField] = useState("");
   const [description, setDescription] = useState("");
-  const [beginnerVideos, setBeginnerVideos] = useState<string[]>([]);
-  const [advancedVideos, setAdvancedVideos] = useState<string[]>([]);
+  const [beginnerVideos, setBeginnerVideos] = useState<Video[]>([]);
+  const [advancedVideos, setAdvancedVideos] = useState<Video[]>([]);
 
   useEffect(() => {
     const fetchResult = async () => {
@@ -28,7 +34,7 @@ export default function ResultBox() {
         const field = data[0]?.field;
         setField(field);
 
-        // details
+        // Fetch field details
         const responseDetail = await fetch(`/api/fields`, {
           method: "GET",
         });
@@ -43,7 +49,7 @@ export default function ResultBox() {
         }
 
         const fieldData = dataDetail.find(
-          (fieldData: { field: any }) => fieldData.field === field
+          (fieldData: { field: string }) => fieldData.field === field
         );
         if (!fieldData) {
           throw new Error("Field not found");
@@ -52,7 +58,7 @@ export default function ResultBox() {
         setImage(fieldData.url_image);
         setDescription(fieldData.description);
 
-        // videos
+        // Fetch videos
         const responseVideos = await fetch(`/api/videos`, {
           method: "GET",
         });
@@ -67,21 +73,27 @@ export default function ResultBox() {
           throw new Error(dataVideos.error);
         }
 
-        // select beginner video URLs when level beginner and field match
+        // Filter and map beginner videos
         const beginnerVideos = dataVideos
           .filter(
             (video: { level: string; field: string }) =>
               video.level === "beginner" && video.field === field
           )
-          .map((video: { url: string }) => video.url);
+          .map((video: { id: string; url: string }) => ({
+            id: video.id,
+            url: video.url,
+          }));
 
-        // select advanced video URLs
+        // Filter and map advanced videos
         const advancedVideos = dataVideos
           .filter(
             (video: { level: string; field: string }) =>
               video.level === "advanced" && video.field === field
           )
-          .map((video: { url: string }) => video.url);
+          .map((video: { id: string; url: string }) => ({
+            id: video.id,
+            url: video.url,
+          }));
 
         setBeginnerVideos(beginnerVideos);
         setAdvancedVideos(advancedVideos);
@@ -116,15 +128,23 @@ export default function ResultBox() {
         <div>
           <h2 className="text-2xl font-semibold mb-4">Beginner Tutorials</h2>
           <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {beginnerVideos.map((url, index) => (
-              <li key={index} className="flex justify-center">
+            {beginnerVideos.map((video) => (
+              <li
+                key={video.id}
+                className="flex flex-col justify-center items-center p-4 border rounded-lg shadow-lg"
+              >
                 <iframe
-                  src={url}
-                  title={`Beginner Video ${index}`}
+                  src={video.url}
+                  title={`Beginner Video ${video.id}`}
                   width="400"
                   height="300"
-                  className="rounded-lg shadow-md"
+                  className="rounded-lg mb-4"
                 />
+                <Link href={`/videos/${video.id}`}>
+                  <button className="bg-[#535cf9] text-white py-2 px-8 text-lg rounded-lg hover:bg-[#535cf9]/90">
+                    Learn
+                  </button>
+                </Link>
               </li>
             ))}
           </ul>
@@ -133,15 +153,23 @@ export default function ResultBox() {
         <div>
           <h2 className="text-2xl font-semibold mb-4">Advanced Tutorials</h2>
           <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {advancedVideos.map((url, index) => (
-              <li key={index} className="flex justify-center">
+            {advancedVideos.map((video) => (
+              <li
+                key={video.id}
+                className="flex flex-col justify-center items-center p-4 border rounded-lg shadow-lg"
+              >
                 <iframe
-                  src={url}
-                  title={`Advanced Video ${index}`}
+                  src={video.url}
+                  title={`Advanced Video ${video.id}`}
                   width="400"
                   height="300"
-                  className="rounded-lg shadow-md"
+                  className="rounded-lg mb-4"
                 />
+                <Link href={`/videos/${video.id}`}>
+                  <button className="bg-[#535cf9] text-white py-2 px-8 text-lg rounded-lg hover:bg-[#535cf9]/90">
+                    Learn
+                  </button>
+                </Link>
               </li>
             ))}
           </ul>
