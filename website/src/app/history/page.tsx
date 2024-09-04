@@ -1,4 +1,4 @@
-import UserDetail from "@/components/user-detail";
+import HistoryList from "@/components/history-list";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 
@@ -18,7 +18,7 @@ export default async function HistoryPage() {
       <div className="absolute bottom-0 left-1/3 w-64 h-64 bg-[#b3b5fd] opacity-50 rounded-full filter blur-3xl z-0"></div>
 
       <div className="relative z-10 flex justify-center items-center">
-        <UserDetail />
+        <HistoryList />
       </div>
     </main>
     </main>

@@ -21,6 +21,14 @@ const navLink: {
     path: "/about-us",
   },
   {
+    name: "Predict",
+    path: "/predict",
+  },
+  {
+    name: "History",
+    path: "/history",
+  },
+  {
     name: "Profile",
     path: "/profile",
   },
