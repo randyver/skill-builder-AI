@@ -11,6 +11,7 @@ le = joblib.load('label_encoder.pkl')  # Muat LabelEncoder
 
 @app.route('/predict', methods=['POST'])
 def predict():
+
     data = request.get_json()
     # Convert JSON data to DataFrame
     data_df = pd.DataFrame(data, index=[0])
@@ -19,25 +20,25 @@ def predict():
     prediction_label = le.inverse_transform(prediction_encoded)
     if prediction_label[0] == 'CodingSkill':
         prediction_label[0] = 'Coding Skill'
-    
+
     elif prediction_label[0] == 'WebDev':
         prediction_label[0] = 'Web Development'
-    
+
     elif prediction_label[0] == 'GameDev':
         prediction_label[0] = 'Game Development'
-    
+
     elif prediction_label[0] == 'CyberSecurity':
         prediction_label[0] = 'Cyber Security'
-    
+
     elif prediction_label[0] == 'DataScience':
         prediction_label[0] = 'Data Science'
-    
+
     elif prediction_label[0] == 'MobileDev':
         prediction_label[0] = 'Mobile Development'
-    
+
     elif prediction_label[0] == 'ProductManager':
         prediction_label[0] = 'Product Manager'
-    
+
     elif prediction_label[0] == 'UIUX':
         prediction_label[0] = 'UI/UX'
 
