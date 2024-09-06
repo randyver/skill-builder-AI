@@ -73,7 +73,7 @@ export default function PredictForm({ user_id }: PredictFormProps) {
       // Generate a unique result_id
       const result_id = uuidv4();
 
-      const response = await fetch("https://compfest-aic.an.r.appspot.com", {
+      const response = await fetch("http://127.0.0.1:5000", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
