@@ -6,8 +6,8 @@ import pandas as pd
 app= Flask(__name__)   
 CORS(app)
 
-model = joblib.load('./model/model.pkl')
-le = joblib.load('./model/label_encoder.pkl')  # Muat LabelEncoder
+model = joblib.load('model.pkl')
+le = joblib.load('label_encoder.pkl')  # Muat LabelEncoder
 
 @app.route('/predict', methods=['POST'])
 def predict():
