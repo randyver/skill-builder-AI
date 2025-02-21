@@ -29,13 +29,13 @@ def evaluate_model(model, X_test: pd.DataFrame, y_test: pd.Series):
     return score
 
 def save_model(model, le, path: str):
-    joblib.dump(model, path + 'model.pkl')
-    joblib.dump(le, path + 'label_encoder.pkl')  
+    joblib.dump(model, path + 'field_prediction_model.pkl')
+    joblib.dump(le, path + 'label_encoder_field_prediction.pkl')  
 
 if __name__ == '__main__':
-    data = load_data('./model/data.csv')
+    data = load_data('./data.csv')
     X_train, X_test, y_train, y_test, le = split_data(data)
     model = train_model(X_train, y_train)
     score = evaluate_model(model, X_test, y_test)
     print(f'Model score: {score}')
-    save_model(model, le, './model/')
+    save_model(model, le, '../model/')
